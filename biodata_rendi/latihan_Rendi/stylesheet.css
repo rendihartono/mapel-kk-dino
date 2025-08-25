@@ -1,0 +1,107 @@
+html, body,
+ul, ol, li,
+h1, h2, h3, h4, h5, h6, p,
+form, input, div {
+ margin: 0;
+ padding: 0;
+}
+body {
+ font-family: "Avenir Next";
+}
+li {
+ list-style: none;
+}
+/* Ketik code Anda dibawah */
+.header{
+ background-color : #000903 ;
+ color: white;
+ height: 80px;
+}
+.header-logo{
+ padding-top: 20px;
+ padding-left: 40px;
+ padding-right: 50px;
+ float: left;
+ font-size: 35px;
+}
+.header-menu li{
+ padding-top: 32px;
+ padding-right: 30px;
+ float: left;
+}
+.content-body{
+ margin-left: 80px;
+ margin-right: 80px;
+ margin-top: 100px;
+ margin-bottom:100px;
+}
+.content-body h1{
+ font-size: 140px;
+}
+.content-body h2{
+ font-size: 60px;
+}
+.red-dot{
+ color: #ff4a4a;
+}
+.lessons{
+ margin-top: 100px;
+ height: 500px;
+}
+.lessons h3{
+ font-size: 28px;
+ padding-bottom: 15px;
+ border-bottom: 2px solid #dee7ec;
+}
+.lesson {
+ margin-top: 50px;
+ margin-right: 40px;
+ margin-bottom: 100px;
+ float: left;
+}
+.lesson p{
+ font-size: 24px;
+ margin-top: 30px;
+}
+.contact{
+ padding-top: 100px;
+}
+.contact{
+ padding-top: 100px;
+}
+.contact-title{
+ border-bottom: 2px solid #dee7ec;
+ font-size: 28px;
+ padding-bottom: 15px;
+ margin-bottom: 50px;
+}
+input, textarea {
+ width: 200px;
+ margin-top: 10px;
+ margin-bottom: 30px;
+ padding :20px;
+ font-size: 18px;
+ border : 1px solid #dee7ec;
+}
+.contact-submit{
+ background-color: #dee7ec;
+ color: #889eab;
+ width: 350px;
+ cursor: pointer;
+}
+.footer{
+ height: 120px;
+ color: white;
+ padding: 40px;
+ background-color: #2f5167;
+}
+.footer-logo{
+ float: left;
+ font-size: 32px;
+}
+.footer-list {
+ float:right;
+}
+.footer-list li{
+ padding-bottom: 20px;
+}

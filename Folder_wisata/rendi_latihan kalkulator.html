@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator Sederhana</title>
+    <link href="https://cdn.jsdeliver.net//npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2);
+            min-height: 100vh;
+            font-family: 'Arial',  sans-serif;   
+        }
+    .calculator-container {
+        background: rgba(255, 255, 0.95);
+        border-radius: 2px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        backdrop-fliter: blur(10px);
+        max-width: 400px;
+    }
+    .display {
+     background: linear-gradient(45deg, #2c3e50, #34495e);
+     color: white;
+     border-radius: 15px;
+     padding: 20px;
+     font-size: 2.5rem;
+     font-weight: bold;
+     text-align: right;
+     min-height: 100px;
+     margin-bottom: 20px;
+     overflow: hidden;
+     position: relative;
+    }
+.display-before {
+    font-size: 1.2rem;
+    color: #95a5a6;
+    min-height: 30px;
+    overflow: hidden;
+}
+.calculator-grid {
+    display: grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap: 12px;
+}
+.btn-clac {
+    height: 70px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.btn-clac:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+.btn-clac:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+.btn-number {
+    background-color: linear-gradient(45deg, #ecf0f1, #bdc3c7);
+    color: #2c3e50;
+}
+.btn-operator  {
+    background: linear-gradient(45deg, #3498db, #2980b9);
+    color: white;
+}
+.btn-equals {
+    background: linear-gradient(45deg, #27ae60, #229954);
+    color: white;
+}
+.btn-clear {
+    background: linear-gradient(45deg, #e74c3c, #c0392b);
+    color: white;
+}
+.btn-special {
+    background: linear-gradient(45deg, #9b59b6, #8e44ad);
+    color: white;
+}
+.btn-zero {
+    grid-column: span 2;
+}
+.btn-pressed {
+    animation: buttonPress 02s ease;
+}
+@keyframes buttonPress {
+    0% {transform: scale(1);}
+    50% {transform: scale(0.95);}
+    100% {transform: scale(1);}
+}
+.history-toggle {
+    background: linear-gradient(45deg, #f39c12 #e67e22);
+    color: white;
+    border: none;
+    border-radius: 16px;
+    padding: 8px 16px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
+}
+.history-over {
+    transform: translateY(-2px);
+    box-shadow: 2 4px 8px rgba(0, 0, 0, 0.2);
+}
+.history-panel {
+    background: rgba(236, 240, 241, 0.9);
+    border-radius: 10px;
+    padding: 15px;
+    margin-top: 20px;
+    max-height: 200px;
+    overflow-y: auto;
+    display: none;
+}
+.history-item {
+    padding: 8px;
+    border-bottom: 1px solid #bdc3c7;
+    font-family: 'Courier New', monospace;
+}
+.history-item:-last-child {
+    border-bottom: none;
+}
+</style>
+</head>
+<body class="py-5">
+  <div class="container"> 
+  <div class="row justfy-content-center">
+   <div class="col-md-6 col-lg-5">
+   <div class="calculator"-container>
+   <!-- Header-->
+    <div class="text-center mb-4">
+    <h1 class="display-6 fw-bold text-primary mb-2">Kalkulator</h1>
+    <p class="text-muted">Kalkulator Sederhana dengan bootstrap</p>
+    </div>
+    <!-- History Toggle-->
+     <button class="history-toggle w-100 mb-3 id="history-toggle>
+     Riwayat Perhitungan 
+     </button>
+     <!-- History Panel-->
+      <div class="history-panel" id="historyPanel">
+      <div class="text-center text-muted">
+      Belum ada riwayat perhitungan
+      </div>
+      </div>
+      <!-- Calculator Display-->
+       <div class="display mb-3">
+        <div class="display-before" id="previousOperation"></div>
+        <div id="currentDisplay">0</div>
+        </div>
+        <!-- Calculator Buttons-->
+         <div class="calculator-grid">
+        <!-- Row 1-->
+         <button class="btn-clac btn-clear" onclick="clearCalculator">()">C</button>
+         <button class="btn-clac btn-special" onclick="deletelast">()">⌫</button>
+         <button class="btn-clac btn-special" onclick="appendToDisplay">('%')">%</button>
+         <button class="btn-clac btn-operator" onclick="chooseOperation">('÷')">÷</button>
+         <!-- Row 2-->
+         <button class="btn-clac btn-number" onclick="appendToDisplay">('7')">7</button>
+         <button class="btn-clac btn-number" onclick="appendToDisplay">('8')">8</button>
+         <button class="btn-clac btn-number" onclick="appendToDisplay">('9')">9</button>
+         <button class="btn-clac btn-operator" onclick="chooseOperation">('x')">x</button>
+         <!-- Row 3-->
+         <button class="btn-clac btn-number" onclick="appendToDisplay">('4')">4</button>
+         <button class="btn-clac btn-number" onclick="appendToDisplay">('5')">5</button>
+         <button class="btn-clac btn-number" onclick="appendToDisplay">('6')">6</button>
+         <button class="btn-clac btn-operator" onclick="chooseOperation">('x')">-</button>
+         <!-- Row 4-->
+         <button class="btn-clac btn-number" onclick="appendToDisplay">('1')">1</button>
+         <button class="btn-clac btn-number" onclick="appendToDisplay">('2')">2</button>
+         <button class="btn-clac btn-number" onclick="appendToDisplay">('3')">3</button>
+         <button class="btn-clac btn-operator" onclick="chooseOperation">('+')">+</button>
+         <!-- Row 5-->
+          <button class="btn-clac btn-number btn-zero" onclick="appendToDisplay">('0')">2</button>
+         <button class="btn-clac btn-number" onclick="appendToDisplay">('.')">.</button>
+         <button class="btn-clac btn-equals" onclick="calculate">()">=</button>
+          </div>
+        </div>
+     </div>
+  </div>
+</div>
+  <script>
+    // Calculator state
+    let currentInput = '0';
+    let previousInput = '';
+    let operation = null;
+    let shouldResetScreen = false;
+    let calculationHistory = [];
+    // DOM Elements
+    const currentDisplay = document.getElementById('currentDisplay');
+    const previousOperationDisplay = document.getElementById('previousOperation');
+    const historyPanel = document.getElementById('historyPanel');
+    const emptyHistory = document.getElementById('empetyHistory');
+    const historyToggle = document.getElementById('historyToggle');
+    // Append to display
+    function appendToDisplay(value) {
+        if (shouldResetScreen) {
+            currentInput ='';
+            shouldResetScreen = false;
+        }
+    // Handle decimal point
+    if (value === '.') && currentInput.includes('.')) {
+        return;
+    }
+     // Replace initial zero
+     if (currentInput === '.' && value !== '.') {
+        currentInput = value;
+     } else {
+        currentInput += value;
+     }
+     updateDisplay();
+     animateButton(event.target);
+    }
+        // Clear calculator
+        function clearCalculator() {
+            currentInput = '0';
+            previousInput = '';
+            operation = null;
+            shouldResetScreen = false;
+            updateDisplay();
+            animateButton(event.target);
+        }
+     // Delete last character
+     function deletelast() {
+        if (currentInput.length === 1) {
+            currentInput = '0';
+        } else  {
+            currentInput = currentInput.slice(0, -1);
+        }
+        updateDisplay();
+        animateButton(event.target);
+     }
+     // choose operation
+     function chooseOperation(op) {
+    if (currentInput === '0') return;
+    if (previousInput !== '') {
+        calculate();
+    }
+    operation = op;
+    previousInput = currentInput;
+    shouldResetScreen = true;
+    updateDisplay();
+     }
+     // Calculate result 
+     function calculate() {
+        let computation;
+        const prev = parseFloat(previousInput);
+        const current = parseFloat(currentInput);
+        if (isNaN(prev) || isNaN(current)) return;
+        switch (operation) {
+            case '+':
+                computation = prev + current;
+                break;
+            case '-':
+                computation = prev - current;
+                break;
+            case 'x':
+                computation = prev * current;
+                break;
+            case '÷':
+                if (current === 0) {
+                    computation = 'Error';
+                } else {
+                    computation = prev / current;
+                }
+                break;
+                default:
+                    return;
+        }
+        // Add to history 
+        const historyEnter = {
+            operation: `${previousInput} ${operation} ${currentInput}`,
+            result: computation.toString()
+        };
+        calculationHistory.unshift(historyEntry);
+        updateHistory();
+
+        currentInput = computation.toString();
+        operation = null;
+        previousInput ='';
+        shouldResetScreen = true;
+        updateDisplay();
+     }
+     // Update display 
+     function updateDisplay() {
+        currentDisplay.textContent = currentInput;
+        if (operation != null) {
+            previousOperationDisplay.textContent =
+            `${previousInput} ${operation}`;
+        } else {
+            previousOperationDisplay.textContent = '';
+        }
+     }
+     // Animate button pres 
+     function animateButton(button) {
+        button.classlist.add('btn-pressed');
+        setTimeout(() => {
+            button.classlist.remove('btn-pressed');
+        }, 200)
+     }
+     // Update history panel 
+     function updateHistory() {
+        historyPanel.innerHTML ='';
+        if ( calculationHistory.length === 0) {
+            historyPanel.appendChild(emptyHistory.cloneNode)(true));
+            return;
+        }
+        calculationHistory.forEach((item) => {
+            const historyItem = document.createElement('div');
+            historyItem.className = 'history-item';
+            historyItem.innerHTML =`
+            <div class="fw-bold">${item.operation} = ${item.result}</div>
+            <small class="text-muted">${new Date().toLocaleTimeString()}</small>
+            `;
+            historyPanel.appendChild(historyItem);
+        });
+        }
+        // Toggle history panel 
+        historyToggle.addEventListener('click'), () => {
+            historyPanel.style.display = historyPanel.style.display === 'none' ? 'block' : 'none';
+            historyToggle.textContent = historyPanel.style.display === 'none' ?
+            'Riwayat Perhitungan' : 'Sembunyikan Riwayat';
+    
+        });
+        // Keyboard support 
+        document.addEventListener('keydown', (event) => {
+            if (/[0-9]/.test(event.key)) {
+                appendToDisdplay(event.key);
+            } else if (event.key === '.') {
+                appendToDisdplay('.');
+            } else if (event.key === '+') {
+                chooseOperation('+');
+            } else if (event.key === '-') {
+                chooseOperation('-');
+            } else if (event.key === '*') {
+                chooseOperation('*');
+            } else if (event.key === 'x') {
+                chooseOperation('x');
+            } else if (event.key === '÷') {
+                chooseOperation('÷');
+            } else if (event.key === 'Enter' || event.key === '=') {
+                event.preventDefault();
+                calculate();
+            } else if (event.key === 'Escape') {
+                clearCalculator();
+            } else if (event.key === 'Backspace') {
+                deletelast();
+            }
+        })
+        // Initialize 
+        updateDisplay();
+  </script>
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</body>

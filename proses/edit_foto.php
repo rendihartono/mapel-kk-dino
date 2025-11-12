@@ -42,18 +42,17 @@ if (isset($_POST['update'])) {
 
         if (move_uploaded_file($tmp_file, $path_baru)) {
             // Hapus foto lama
-            $path_lama = "../img/" . $file_lama;
-            if (file_exists($path_lama)) {
-                unlink($path_lama);
+            if (file_exists('../gambar/' . $file_lama)) {
+                unlink('../gambar/' . $file_lama);
             }
 
             // Update semua data termasuk foto baru
             $update = mysqli_query($conn, "UPDATE foto SET
-                lokasi_file    = '$nama_baru',
                 judul_foto     = '$judul_foto',
+                lokasi_file    = '$nama_baru',
                 lokasi_foto    = '$lokasi_foto',
                 deskripsi_foto = '$deskripsi_foto',
-                tanggal_update = '$tanggal_update'
+                tanggal_upload = '$tanggal_update'
                 WHERE id_foto = '$id_foto'");
 
             if ($update) {
@@ -67,11 +66,12 @@ if (isset($_POST['update'])) {
     } else {
         // Tidak mengganti foto, hanya update data teks
         $update = mysqli_query($conn, "UPDATE foto SET
-            judul_foto     = '$judul_foto',
-            lokasi_foto    = '$lokasi_foto',
-            deskripsi_foto = '$deskripsi_foto',
-            tanggal_update = '$tanggal_update'
-            WHERE id_foto = '$id_foto'");
+                judul_foto     = '$judul_foto',
+                lokasi_file    = '$nama_baru',
+                lokasi_foto    = '$lokasi_foto',
+                deskripsi_foto = '$deskripsi_foto',
+                tanggal_upload = '$tanggal_update'
+                WHERE id_foto = '$id_foto'");
 
         if ($update) {
             echo "<script>alert('Data foto berhasil diperbarui tanpa mengganti foto.'); window.location='../admin/d-admin.php';</script>";

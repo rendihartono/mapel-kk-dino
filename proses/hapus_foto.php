@@ -23,23 +23,24 @@ if (isset($_GET['id'])) {
         if ($delete) {
             echo "<script>
             alert('Foto berhasil dihapus!');
-            window.location='../admin/d_admin.php';
+            window.location='../admin/d-admin.php';
             </script>";
         } else {
             echo "<script>
             alert('Gagal menghapus data dari database.');
-            window.location='../admin/d_admin.php';
+            window.location='../admin/d-admin.php';
             </script>";
         }
-    }
+    
         } else {
         echo "<script>
         alert('Foto tidak ditemukan di database.');
         window.location='../admin/d-admin.php';
     </script>";
+        }
 
  } else {
     // Jika tidak ada parameter id di URL
     header("Location: ../admin/d-admin.php");
-    exit;
+exit;
 }

@@ -51,7 +51,7 @@ if (isset($_POST['tambah'])) {
                 VALUES ('$judul_foto', '$deskripsi_foto', '$lokasi_foto', '$nama_baru', '$tanggal_upload', '$id_user')";  
 
         if (mysqli_query($conn, $sql)) {  
-            echo "<script>alert('Foto berhasil ditambahkan!'); window.location='../d-admin.php';</script>";  
+            echo "<script>alert('Foto berhasil ditambahkan!'); window.location='../admin/d-admin.php';</script>";  
         } else {  
             echo "<script>alert('Gagal menyimpan data ke database: " . mysqli_error($conn) . "'); history.back();</script>";  
         }     
